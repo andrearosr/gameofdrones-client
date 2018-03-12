@@ -41,7 +41,7 @@ describe('Game reducer', () => {
         champion: 'Jorah'
       }
 
-      const state = reducer(game, Actions.playerYield({ ...payload }))
+      const state = reducer(game, Actions.championYield({ ...payload }))
 
       expect(state).toHaveProperty('winner', 'Bronn')
     })

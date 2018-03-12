@@ -4,7 +4,7 @@ const { Types, Creators } = createActions({
   startGame: {
     champions: null,
   },
-  playerYield: {
+  championYield: {
     champion: null,
   },
   reset: null,
@@ -20,7 +20,7 @@ export default Creators;
 // Moves holds the history of moves
 export const INITIAL_STATE = {
   champions: null,
-  readyPlayerOne: null,
+  readyChampionOne: null,
   round: 0,
   winner: null,
   currentMove: null,
@@ -34,11 +34,11 @@ export const initializeGame = (state, { champions }) => {
     ...state,
     champions,
     round: 1,
-    readyPlayerOne: true,
+    readyChampionOne: true,
   }
 }
 
-export const playerYields = (state, { champion }) => {
+export const championYields = (state, { champion }) => {
   const otherPlayer = state.champions.find((i) => {
     return i !== champion
   })
@@ -47,7 +47,7 @@ export const playerYields = (state, { champion }) => {
     ...state,
     round: 4,
     winner: otherPlayer,
-    readyPlayerOne: null,
+    readyChampionOne: null,
   }
 }
 
@@ -61,6 +61,6 @@ export const resetGame = () => {
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.START_GAME]: initializeGame,
-  [Types.PLAYER_YIELD]: playerYields,
+  [Types.CHAMPION_YIELD]: championYields,
   [Types.RESET]: resetGame,
 })

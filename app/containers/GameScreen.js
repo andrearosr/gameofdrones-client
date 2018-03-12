@@ -5,9 +5,36 @@ import Layout from './Layout'
 import GameActions from '../redux/game'
 
 class GameScreen extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      yields: [
+        false,
+        false,
+      ],
+    }
+  }
+
+  // Use this to reset game
+  // componentWillMount() {
+  //   this.props.reset()
+  // }
+
+  onYieldPress = (champion, index) => {
+    const current = this.state.yields
+    current[index] = true
+    this.setState({ yields: current })
+  }
+
   render() {
     const { game } = this.props
-    const player = game.readyPlayerOne ? game.champions[0] : game.champions[1]
+    const { champion, index } = game.readyChampionOne
+      ? { champion: game.champions[0], index: 0 }
+      : { champion: game.champions[1], index: 1 }
+
+    const yieldDisabled = this.state.yields[index]
+    const yieldButtonLabel = yieldDisabled ? 'Not today' : 'Yield'
 
     return (
       <Layout>
@@ -15,11 +42,11 @@ class GameScreen extends Component {
           {/* Title */}
           <div className="game-screen-title">
             Round: {game.round}
-          </div>
 
-          {/* Player */}
-          <div className="game-screen-player">
-            Player: {player}
+            {/* Player */}
+            <div className="game-screen-player">
+              Champion: {champion}
+            </div>
           </div>
 
           {/* Buttons */}
@@ -27,8 +54,12 @@ class GameScreen extends Component {
             <button className="button-main">
               Accept
             </button>
-            <button className="button-danger">
-              Yield
+            <button
+              className="button-danger"
+              onClick={() => this.onYieldPress(champion, index)}
+              disabled={yieldDisabled}
+            >
+              {yieldButtonLabel}
             </button>
           </div>
         </div>
@@ -47,6 +78,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     reset: () => {
       dispatch(GameActions.reset())
+    },
+    championYield: (champion) => {
+      dispatch(GameActions.championYield({ champion }))
     },
   }
 }

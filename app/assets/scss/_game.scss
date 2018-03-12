@@ -11,6 +11,8 @@
 }
 
 .game-screen-title {
+  text-align: center;
+  
   @include title-font;
   font-size: 22px;
 
