@@ -1,24 +1,51 @@
-import React from 'react'
+import React, { Component } from 'react'
+import {
+  Route,
+  Redirect,
+} from 'react-router-dom'
 import { RoutedTabs, NavTab } from 'react-router-tabs'
+import { connect } from 'react-redux'
 
-const Layout = ({ children }) => {
-  return (
-    <div className="container">
-      <header>
-        <h1 className="title-font page-title">Game of Drones</h1>
-      </header>
-      <div className="content">
-        <div className="box">
-          <RoutedTabs className="tabbar" activeTabClassName="activeTab">
-            <NavTab to="/game" className="tab tab-left">Game</NavTab>
-            <NavTab to="/scoreboard" className="tab tab-right">Scoreboard</NavTab>
-          </RoutedTabs>
+class Layout extends Component {
+  redirect() {
+    if (this.props.game.round > 0) {
+      return (
+        <Route path="/game" render={() => <Redirect replace to="/game/play" />} exact />
+      )
+    }
 
-          {children}
+    return null;
+  }
+
+  render() {
+    const { children, game } = this.props
+    const gameRoute = game.round > 0 ? '/game/play' : '/game'
+
+    return (
+      <div className="container">
+        <header>
+          <h1 className="title-font page-title">Game of Drones</h1>
+        </header>
+        <div className="content">
+          <div className="box">
+            <RoutedTabs className="tabbar" activeTabClassName="activeTab">
+              {this.redirect()}
+              <NavTab to={gameRoute} className="tab tab-left">Game</NavTab>
+              <NavTab to="/scoreboard" className="tab tab-right">Scoreboard</NavTab>
+            </RoutedTabs>
+
+            {children}
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
-export default Layout
+const mapStateToProps = ({ game }) => {
+  return {
+    game,
+  }
+}
+
+export default connect(mapStateToProps)(Layout)

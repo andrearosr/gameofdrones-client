@@ -1,0 +1,42 @@
+@import 'colors';
+@import 'general';
+
+.game-screen-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+}
+
+.game-screen-title {
+  @include title-font;
+  font-size: 22px;
+
+  @include medium-and-up {
+    font-size: 48px;
+  }
+}
+
+.game-screen-player {
+  @include title-font;
+  font-size: 18px;
+
+  @include medium-and-up {
+    font-size: 36px;
+  }
+}
+
+.game-screen-buttons {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    margin: 10px;
+  }
+
+  @include medium-and-up {
+    flex-direction: row;
+  }
+}

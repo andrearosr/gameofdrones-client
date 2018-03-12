@@ -7,8 +7,14 @@ import Layout from './Layout'
 import GameActions from '../redux/game'
 
 class GameStart extends Component {
-  componentWillMount() {
-    this.props.reset()
+  renderButton() {
+    const { handleSubmit, invalid } = this.props
+
+    return (
+      <button className="button-main" type="submit" disabled={invalid}>
+        Start
+      </button>
+    )
   }
 
   render() {
@@ -56,11 +62,7 @@ class GameStart extends Component {
 
           {/* Button */}
           <div className="start-screen-buttons">
-            <Link to="/game/play">
-              <button className="button-main" type="submit">
-                Start
-              </button>
-            </Link>
+            {this.renderButton()}
           </div>
         </form>
       </Layout>
@@ -69,8 +71,16 @@ class GameStart extends Component {
 }
 
 // Connect to Redux Form
-const validate = () => {
+const validate = (values) => {
   const errors = []
+
+  if (!values.champion1) {
+    errors.champion1 = 'You must select a champion'
+  }
+
+  if (!values.champion2) {
+    errors.champion2 = 'You must select a champion'
+  }
 
   return errors
 }
@@ -79,24 +89,17 @@ const GameStartScreen = reduxForm({
   validate,
   form: 'startGame',
   onSubmit: (values, dispatch) => {
-    dispatch(GameActions.startGame({ ...values }))
+    const champions = Object.values(values)
+    dispatch(GameActions.startGame({ champions }))
   },
 })(GameStart)
 
 // Connect to Redux
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ game }) => {
   return {
-    game: state.game,
+    game,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    reset: () => {
-      dispatch(GameActions.reset())
-    },
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GameStartScreen)
+export default connect(mapStateToProps)(GameStartScreen)

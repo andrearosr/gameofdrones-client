@@ -17,6 +17,7 @@
   "author": "Kliment Petrov <kleopetroff@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "cross-env": "5.1.4",
     "eslint-config-standard": "^11.0.0",
     "lodash": "^4.17.5",
@@ -25,11 +26,14 @@
     "react-hot-loader": "4.0.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "4.2.2",
+    "react-router-redux": "^4.0.8",
     "react-router-tabs": "^1.1.0",
     "react-tabs": "^2.2.1",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
+    "redux-immutable": "^4.0.0",
     "redux-persist": "^5.9.1",
+    "redux-saga": "^0.16.0",
     "reduxsauce": "^0.7.0",
     "seamless-immutable": "^7.1.3"
   },

@@ -2,28 +2,48 @@ import React from 'react'
 import Actions, { reducer, INITIAL_STATE } from '../../app/redux/game'
 
 describe('Game reducer', () => {
-  it('should respond to unhandled action with initial state', () => {
+  it('unhandled action resets state', () => {
     const state = reducer(undefined, {})
 
     expect(state).toMatchObject(INITIAL_STATE)
   })
 
-  it('should initialize a game with given champions', () => {
+  it('RESET action resets state', () => {
+    const state = reducer(undefined, Actions.reset())
+
+    expect(state).toMatchObject(INITIAL_STATE)
+  })
+
+  it('START_GAME action initializes a new game', () => {
     const payload = {
-      champion1: 'Jorah',
-      champion2: 'Bronn'
+      champions: ['Jorah', 'Bronn']
     }
 
     const state = reducer(INITIAL_STATE, Actions.startGame({ ...payload }))
 
-    expect(state).toHaveProperty('champion1', 'Jorah')
-    expect(state).toHaveProperty('champion2', 'Bronn')
+    expect(state).toHaveProperty('champions', ['Jorah', 'Bronn'])
     expect(state).toHaveProperty('round', 1)
   })
 
-  it('should be resettable', () => {
-    const state = reducer(undefined, Actions.reset())
+  describe('during an existing game', () => {
+    let game
 
-    expect(state).toMatchObject(INITIAL_STATE)
+    beforeEach(() => {
+      const payload = {
+        champions: ['Jorah', 'Bronn']
+      }
+
+      game = reducer(INITIAL_STATE, Actions.startGame({ ...payload }))
+    })
+
+    it('YIELD action ends game in favor of opponent', () => {
+      const payload = {
+        champion: 'Jorah'
+      }
+
+      const state = reducer(game, Actions.playerYield({ ...payload }))
+
+      expect(state).toHaveProperty('winner', 'Bronn')
+    })
   })
 })
