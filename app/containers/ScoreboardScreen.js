@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Layout from '../containers/Layout';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import Layout from '../containers/Layout'
 
 class ScoreboardScreen extends Component {
   render() {
@@ -10,8 +10,8 @@ class ScoreboardScreen extends Component {
           these violent delights
         </div>
       </Layout>
-    );
+    )
   }
 }
 
-export default connect()(ScoreboardScreen);
+export default connect()(ScoreboardScreen)

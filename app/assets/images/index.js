@@ -3,4 +3,4 @@ export default {
   paperIcon: require('./paper.png'),
   scissorsIcon: require('./scissors.png'),
   crow: require('./crow.jpg'),
-};
+}

@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Cinzel');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700');
 @import 'colors';
-@import 'metrics';
+@import 'general';
 @import 'tabs';
+@import 'controls';
 @import 'landing';
 
 body {
@@ -12,7 +13,7 @@ body {
 }
 
 .title-font {
-  font-family: 'Cinzel', serif;
+  @include title-font;
 }
 
 #root {
@@ -37,9 +38,13 @@ header {
 .page-title {
   margin-top: 15px;
   margin-bottom: 10px;
-  font-size: 48px;
+  font-size: 28px;
   text-align: center;
   color: white;
+
+  @include medium-and-up {
+    font-size: 48px;
+  }
 }
 
 .content {
@@ -52,16 +57,11 @@ header {
 .box {
   display: flex;
   flex-direction: column;
-  margin-top: 10%;
-  margin-bottom: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
   width: 80%;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
-
-  @include medium-and-up {
-    margin-top: 5%;
-    margin-bottom: 5%;
-  }
 
   @include large-and-up {
     margin-top: 2%;

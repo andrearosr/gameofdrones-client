@@ -1,9 +1,77 @@
 @import 'colors';
-@import 'metrics';
+@import 'general';
 
 .start-screen-content {
   flex: 1;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
+  padding: 10px;
+}
+
+.start-screen-title {
+  p {
+    text-align: center;
+    font-size: 18px;
+    @include title-font;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    b {
+      font-size: 22px;
+    }
+
+    @include medium-and-up {
+      font-size: 26px;
+
+      b {
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+.start-screen-buttons {
+}
+
+.start-screen-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+
+  .row {
+    width: 100%;
+    margin-bottom: 30px;
+
+    .label {
+      display: block;
+    }
+
+    .input {
+      width: 100%;
+    }
+
+    @include small-and-up {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+
+      font-size: 18px;
+
+      .label {
+        flex: 1;
+      }
+
+      .input {
+        margin-left: 10px;
+        flex: 4;
+      }
+    }
+  }
 }

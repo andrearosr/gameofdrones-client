@@ -1,5 +1,5 @@
-import React from 'react';
-import { RoutedTabs, NavTab } from 'react-router-tabs';
+import React from 'react'
+import { RoutedTabs, NavTab } from 'react-router-tabs'
 
 const Layout = ({ children }) => {
   return (
@@ -13,11 +13,12 @@ const Layout = ({ children }) => {
             <NavTab to="/game" className="tab tab-left">Game</NavTab>
             <NavTab to="/scoreboard" className="tab tab-right">Scoreboard</NavTab>
           </RoutedTabs>
+
           {children}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

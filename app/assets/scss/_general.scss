@@ -1,5 +1,6 @@
-// Breakpoints
+@import 'colors';
 
+// Breakpoints
 @mixin xs-only {
   @media (max-width: 599px) { @content; }
 }
@@ -20,6 +21,17 @@
   @media (min-width: 1800px) { @content; }
 }
 
-// Contants
+// Constants
+@mixin regular-font {
+  font-family: 'Open Sans', sans-serif;
+}
 
-$transition: all 0.5s;
+@mixin title-font {
+  font-family: 'Cinzel', serif;
+}
+
+@mixin shadow {
+  box-shadow: 1px 1px 4px $slate;
+}
+
+$transition: all 0.15s;

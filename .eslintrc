@@ -19,8 +19,15 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "linebreak-style": "off",
     "global-require": "off",
-    "semi": "warn",
+    "semi": "off",
     "arrow-body-style": "off",
-    "react/prop-types": [0]
+    "react/prop-types": "off",
+    "jsx-a11y/label-has-for": [ 2, {
+            "components": [ "Label" ],
+            "required": {
+                "some": [ "nesting", "id" ]
+            },
+            "allowChildren": false
+        }],
   }
 }
