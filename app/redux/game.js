@@ -6,6 +6,7 @@ const { Types, Creators } = createActions({
     champion1: null,
     champion2: null,
   },
+  reset: null,
 })
 
 export const GameTypes = Types;
@@ -18,6 +19,7 @@ export const INITIAL_STATE = Immutable({
   champion2: null,
   round: 0,
   winner: null,
+  currentMove: null,
   moves: [],
 })
 
@@ -32,10 +34,15 @@ export const initializeGame = (state, action) => {
   })
 }
 
+export const resetGame = () => {
+  return INITIAL_STATE
+}
+
 /* --------------------End Reducers ------------------- */
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.START_GAME]: initializeGame,
+  [Types.RESET]: resetGame,
 })

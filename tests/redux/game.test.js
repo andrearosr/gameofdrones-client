@@ -20,4 +20,10 @@ describe('Game reducer', () => {
     expect(state).toHaveProperty('champion2', 'Bronn')
     expect(state).toHaveProperty('round', 1)
   })
+
+  it('should be resettable', () => {
+    const state = reducer(undefined, Actions.reset())
+
+    expect(state).toMatchObject(INITIAL_STATE)
+  })
 })

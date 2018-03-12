@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Field, reduxForm } from 'redux-form'
+import { Link } from 'react-router-dom'
 import Layout from './Layout'
 
 import GameActions from '../redux/game'
 
-class StartScreen extends Component {
+class GameStart extends Component {
   componentWillMount() {
-    this.props.startGame()
+    this.props.reset()
   }
 
   render() {
+    const { handleSubmit } = this.props
+
     return (
       <Layout>
-        <div className="start-screen-content">
+        <form className="start-screen-content" onSubmit={handleSubmit}>
           {/* Title */}
           <div className="start-screen-title">
             <p>I will let the gods decide my fate.</p>
@@ -20,33 +24,66 @@ class StartScreen extends Component {
           </div>
 
           {/* Inputs */}
-          <form className="start-screen-form">
+          <div className="start-screen-form">
             <div className="row">
               <label htmlFor="champion1" className="label">
                 Your Champion:
               </label>
-              <input id="champion1" type="text" className="input" />
+              <Field
+                name="champion1"
+                component="input"
+                id="champion1"
+                type="text"
+                placeholder="Name"
+                className="input"
+              />
             </div>
 
             <div className="row">
-              <label htmlFor="champion1" className="label">
+              <label htmlFor="champion2" className="label">
                 Opponent:
               </label>
-              <input id="champion1" type="text" className="input" />
+              <Field
+                name="champion2"
+                component="input"
+                id="champion2"
+                type="text"
+                placeholder="Name"
+                className="input"
+              />
             </div>
-          </form>
+          </div>
 
           {/* Button */}
           <div className="start-screen-buttons">
-            <button className="button-main">
-              Start
-            </button>
+            <Link to="/game/play">
+              <button className="button-main" type="submit">
+                Start
+              </button>
+            </Link>
           </div>
-        </div>
+        </form>
       </Layout>
     )
   }
 }
+
+// Connect to Redux Form
+const validate = () => {
+  const errors = []
+
+  return errors
+}
+
+const GameStartScreen = reduxForm({
+  validate,
+  form: 'startGame',
+  onSubmit: (values, dispatch) => {
+    dispatch(GameActions.startGame({ ...values }))
+  },
+})(GameStart)
+
+// Connect to Redux
 
 const mapStateToProps = (state) => {
   return {
@@ -56,10 +93,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    startGame: () => {
-      dispatch(GameActions.startGame({}))
+    reset: () => {
+      dispatch(GameActions.reset())
     },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StartScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(GameStartScreen)
