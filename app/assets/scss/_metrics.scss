@@ -1,0 +1,25 @@
+// Breakpoints
+
+@mixin xs-only {
+  @media (max-width: 599px) { @content; }
+}
+
+@mixin small-and-up {
+  @media (min-width: 600px) { @content; }
+}
+
+@mixin medium-and-up {
+  @media (min-width: 900px) { @content; }
+}
+
+@mixin large-and-up {
+  @media (min-width: 1200px) { @content; }
+}
+
+@mixin xl-and-up {
+  @media (min-width: 1800px) { @content; }
+}
+
+// Contants
+
+$transition: all 0.5s;
