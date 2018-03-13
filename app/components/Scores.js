@@ -6,7 +6,7 @@ const renderPoints = ({ champions, scores }) => {
     const points = _.filter(scores, i => i === champion).length
 
     return (
-      <div className="scores-row">
+      <div className="scores-row" key={champion}>
         <div className="scores-col">
           {champion}
         </div>
@@ -20,8 +20,9 @@ const renderPoints = ({ champions, scores }) => {
 
 const renderScores = ({ scores }) => {
   return scores.map((score, index) => {
+    // Wouldn't normally use index as key but on this case we can guarantee there'll be no reorder
     return (
-      <div className="scores-row">
+      <div className="scores-row" key={index}>
         <div className="scores-col">
           {index + 1}
         </div>

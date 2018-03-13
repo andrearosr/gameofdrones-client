@@ -2,24 +2,31 @@ import React, { Component } from 'react'
 import {
   Route,
   Redirect,
+  withRouter,
 } from 'react-router-dom'
 import { RoutedTabs, NavTab } from 'react-router-tabs'
 import { connect } from 'react-redux'
 
+// This class is to be used as a 'wrapper' around normal screens
+// It provides common layout, including the tab bar.
 class Layout extends Component {
-  redirect() {
-    if (this.props.game.round > 0) {
-      return (
-        <Route path="/game" render={() => <Redirect replace to="/game/play" />} exact />
-      )
+  redirect(gameRoute) {
+    // Redirect to appropriate 'game' screen based on state.
+    const { pathname } = this.props.location;
+    if (pathname === gameRoute || !pathname.startsWith('/game')) {
+      return null
     }
 
-    return null;
+    return (
+      <Route path={pathname} render={() => <Redirect replace to={gameRoute} />} exact />
+    )
   }
 
   render() {
     const { children, game } = this.props
-    const gameRoute = game.round > 0 ? '/game/play' : '/game'
+    let gameRoute = '/game'
+    if (game.round > 0) gameRoute = '/game/play'
+    if (game.winner) gameRoute = '/game/end'
 
     return (
       <div className="container">
@@ -29,7 +36,7 @@ class Layout extends Component {
         <div className="content">
           <div className="box">
             <RoutedTabs className="tabbar" activeTabClassName="activeTab">
-              {this.redirect()}
+              {this.redirect(gameRoute)}
               <NavTab to={gameRoute} className="tab tab-left">Game</NavTab>
               <NavTab to="/leaderboard" className="tab tab-right">Leaderboard</NavTab>
             </RoutedTabs>
@@ -48,4 +55,4 @@ const mapStateToProps = ({ game }) => {
   }
 }
 
-export default connect(mapStateToProps)(Layout)
+export default withRouter(connect(mapStateToProps)(Layout))

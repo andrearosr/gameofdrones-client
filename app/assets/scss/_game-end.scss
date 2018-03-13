@@ -1,0 +1,36 @@
+@import 'colors';
+@import 'general';
+
+.end-screen-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+}
+
+.end-screen-title {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    text-align: center;
+    font-size: 18px;
+    @include title-font;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    b {
+      font-size: 22px;
+    }
+
+    @include medium-and-up {
+      font-size: 30px;
+
+      b {
+        font-size: 48px;
+      }
+    }
+  }
+}

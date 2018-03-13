@@ -10,6 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import configureStore from './configureStore'
 import GameStartScreen from '../containers/GameStartScreen'
 import GameScreen from '../containers/GameScreen'
+import GameEndScreen from '../containers/GameEndScreen'
 import LeaderboardScreen from '../containers/LeaderboardScreen'
 
 const { store, persistor } = configureStore()
@@ -23,6 +24,7 @@ const Root = () => {
           <Route path="/" render={() => <Redirect replace to="/game" />} exact />
           <Route path="/game" component={GameStartScreen} exact />
           <Route path="/game/play" component={GameScreen} exact />
+          <Route path="/game/end" component={GameEndScreen} exact />
           <Route path="/leaderboard" component={LeaderboardScreen} exact />
         </Switch>
       </Router>
