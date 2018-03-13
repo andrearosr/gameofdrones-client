@@ -4,7 +4,7 @@ This game is almost exactly like Rock-Paper-Scissors, except for one key differe
 
 ## Getting Started
 
-Clone this repo in your preferred location. 
+1. Clone this repo in your preferred location. 
 
 [Optional] The `master` branch uses a [heroku-hosted API](https://gofdrones.herokuapp.com/api/v1). If you want to use a local server instead, run from the project directory:
 
@@ -12,11 +12,9 @@ Clone this repo in your preferred location.
 
 and follow instructions below.
 
-Using either server,
-
-1. Run `npm install` or `yarn install`
-2. Start the dev server using `npm start`
-3. Open [http://localhost:8080](http://localhost:8080)
+2. Run `npm install` or `yarn install`
+3. Start the dev server using `npm start`
+4. Open [http://localhost:8080](http://localhost:8080)
 
 ## Available Commands
 
