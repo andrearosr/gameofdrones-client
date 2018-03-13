@@ -1,8 +1,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-// const create = (baseURL = 'https://gofdrones.herokuapp.com/api/v1') => {
-const create = (baseURL = 'http://127.0.0.1:5000/api/v1') => {
+const create = (baseURL = 'https://gofdrones.herokuapp.com/api/v1') => {
   // ------
   // Configuration
   // ------
@@ -20,6 +19,7 @@ const create = (baseURL = 'http://127.0.0.1:5000/api/v1') => {
   const getWeapons = () => api.get('/weapons')
   const getUsers = () => api.get('/users')
   const findOrCreateUser = ({ name }) => api.post('/users', { name })
+  const addWin = ({ id }) => api.patch(`/users/${id}/win`)
 
   // ------
   // Interface
@@ -28,6 +28,7 @@ const create = (baseURL = 'http://127.0.0.1:5000/api/v1') => {
     getWeapons,
     getUsers,
     findOrCreateUser,
+    addWin,
   }
 }
 

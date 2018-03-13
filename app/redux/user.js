@@ -28,6 +28,14 @@ export const INITIAL_STATE = {
   finished: false,
 }
 
+/* ------------- Selectors ------------- */
+
+export const UserSelectors = {
+  getChampionsUsers: ({ user }) => ({
+    championsUsers: user.championsUsers,
+  }),
+}
+
 /* ------------- REDUCERS -------------------- */
 
 export const get = (state) => {

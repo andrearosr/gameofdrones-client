@@ -1,5 +1,6 @@
-import { call, put } from 'redux-saga/effects'
-import UserActions from '../redux/user'
+import { call, put, select } from 'redux-saga/effects'
+import _ from 'lodash'
+import UserActions, { UserSelectors } from '../redux/user'
 
 export function* fetchUsers (api) {
   const response = yield call(api.getUsers)
@@ -32,4 +33,14 @@ export function* getChampionsUsers (api, action) {
 
   const championsUsers = [userOne.data, userTwo.data]
   yield put(UserActions.getChampionsUsersSuccess({ championsUsers }))
+}
+
+export function* saveWinner (api, action) {
+  const { winner } = action
+  const { championsUsers } = yield select(UserSelectors.getChampionsUsers)
+
+  const { id } = _.find(championsUsers, ['name', winner])
+  yield call(api.addWin, { id })
+
+  yield put(UserActions.fetchUsers())
 }
