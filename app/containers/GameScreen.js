@@ -91,7 +91,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(GameActions.reset())
     },
     fetch: () => {
-      dispatch(SettingsActions.fetch())
+      dispatch(SettingsActions.fetchWeapons())
     },
     makeMove: ({ weapon }) => {
       dispatch(GameActions.makeMove({ weapon }))

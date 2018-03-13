@@ -5,11 +5,13 @@ import API from '../services/api'
 
 import { GameTypes } from '../redux/game'
 import { SettingsTypes } from '../redux/settings'
+import { UserTypes } from '../redux/user'
 
 /* ------------- Sagas ------------- */
 
 import { computeRound, computeGame } from './game'
-import { fetch } from './settings'
+import { fetchWeapons } from './settings'
+import { fetchUsers } from './user'
 
 /* ------------- API ------------- */
 const api = API.create()
@@ -18,8 +20,9 @@ const api = API.create()
 
 export default function* root () {
   yield all([
-    takeLatest(SettingsTypes.FETCH, fetch, api),
+    takeLatest(SettingsTypes.FETCH_WEAPONS, fetchWeapons, api),
     takeLatest(GameTypes.MAKE_MOVE, computeRound),
     takeLatest(GameTypes.COMPLETE_ROUND, computeGame),
+    takeLatest(UserTypes.FETCH_USERS, fetchUsers, api),
   ])
 }

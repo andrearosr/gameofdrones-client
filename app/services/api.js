@@ -17,12 +17,14 @@ const create = (baseURL = 'https://gofdrones.herokuapp.com/api/v1') => {
   // Services
   // ------
   const getWeapons = () => api.get('/weapons')
+  const getUsers = () => api.get('/users')
 
   // ------
   // Interface
   // ------
   return {
     getWeapons,
+    getUsers,
   }
 }
 

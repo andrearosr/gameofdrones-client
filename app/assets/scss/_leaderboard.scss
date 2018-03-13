@@ -1,0 +1,52 @@
+@import 'general';
+@import 'colors';
+
+.leaderboard-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  @include medium-and-up {
+    width: 80%;
+  }
+
+  @include large-and-up {
+    width: 60%;
+  }
+}
+
+.leaderboard-title {
+  @include title-font;
+  font-size: 18px;
+
+  @include medium-and-up {
+    font-size: 36px;
+  }
+}
+
+.leaderboard-table {
+}
+
+.leaderboard-row {
+  display: flex;
+  text-align: center;
+
+  .leaderboard-col {
+    flex: 1;
+    margin-top: 10px;
+    font-size: 16px;
+
+    @include medium-and-up {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 18px;
+
+      @include medium-and-up {
+        font-size: 28px;
+      }
+    }
+  }
+}

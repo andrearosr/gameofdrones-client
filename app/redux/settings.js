@@ -2,11 +2,11 @@ import { createReducer, createActions } from 'reduxsauce'
 import _ from 'lodash'
 
 const { Types, Creators } = createActions({
-  fetch: null,
-  fetchSuccess: {
+  fetchWeapons: null,
+  fetchWeaponsSuccess: {
     weapons: [],
   },
-  fetchFailure: null,
+  fetchWeaponsFailure: null,
   addMove: {
     weapon: {},
     move: null,
@@ -77,9 +77,9 @@ export const resetSettings = () => {
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.FETCH]: get,
-  [Types.FETCH_SUCCESS]: getSuccess,
-  [Types.FETCH_FAILURE]: getFailure,
+  [Types.FETCH_WEAPONS]: get,
+  [Types.FETCH_WEAPONS_SUCCESS]: getSuccess,
+  [Types.FETCH_WEAPONS_FAILURE]: getFailure,
   [Types.ADD_MOVE]: addNewMove,
   [Types.ADD_WEAPON]: addNewWeapon,
   [Types.RESET]: resetSettings,
