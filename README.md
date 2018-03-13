@@ -10,8 +10,6 @@ This game is almost exactly like Rock-Paper-Scissors, except for one key differe
 
 `git fetch && git checkout ar/local-server`
 
-and follow instructions below.
-
 2. Run `npm install` or `yarn install`
 3. Start the dev server using `npm start`
 4. Open [http://localhost:8080](http://localhost:8080)
