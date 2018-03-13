@@ -21,7 +21,7 @@ class GameScreen extends Component {
   }
 
   componentWillMount() {
-    this.props.fetch();
+    this.props.fetchWeapons()
     // this.props.reset();
   }
 
@@ -47,7 +47,7 @@ class GameScreen extends Component {
   }
 
   render() {
-    const { game } = this.props
+    const { game, user } = this.props
     const { champions, scores } = game
     const { champion, index } = game.isChampionOneTurn
       ? { champion: game.champions[0], index: 0 }
@@ -90,7 +90,7 @@ const mapDispatchToProps = (dispatch) => {
     reset: () => {
       dispatch(GameActions.reset())
     },
-    fetch: () => {
+    fetchWeapons: () => {
       dispatch(SettingsActions.fetchWeapons())
     },
     makeMove: ({ weapon }) => {

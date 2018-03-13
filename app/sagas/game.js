@@ -1,8 +1,8 @@
-import { call, put, select } from 'redux-saga/effects'
+import { put, select } from 'redux-saga/effects'
 import _ from 'lodash'
 import GameActions, { GameSelectors } from '../redux/game'
 
-export function* computeRound (action) {
+export function* computeRound () {
   const {
     champions,
     weapons,
@@ -15,11 +15,8 @@ export function* computeRound (action) {
     yield put(GameActions.continueRound())
   } else {
     // Both players have made their move, now let's see who won
-    const playerOne = champions[0]
-    const playerTwo = champions[1]
-
-    const playerOneMove = currentMove[0]
-    const playerTwoMove = currentMove[1]
+    const [playerOne, playerTwo] = champions
+    const [playerOneMove, playerTwoMove] = currentMove
 
     const playerOneWeapon = _.find(weapons, ['name', playerOneMove])
     const playerTwoWeapon = _.find(weapons, ['name', playerTwoMove])
@@ -66,8 +63,7 @@ export function* computeGame (action) {
   const { scores } = action
   const { champions } = yield select(GameSelectors.getChampions)
 
-  const playerOne = champions[0]
-  const playerTwo = champions[1]
+  const [playerOne, playerTwo] = champions
 
   const playerOnePoints = _.filter(scores, i => i === playerOne).length
 

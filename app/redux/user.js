@@ -6,6 +6,13 @@ const { Types, Creators } = createActions({
     users: [],
   },
   fetchUsersFailure: null,
+  getChampionsUsers: {
+    champions: [],
+  },
+  getChampionsUsersSuccess: {
+    championsUsers: [],
+  },
+  getChampionsUsersFailure: null,
   reset: null,
 })
 
@@ -17,6 +24,8 @@ export default Creators;
 // Available moves
 export const INITIAL_STATE = {
   users: [],
+  championsUsers: [],
+  finished: false,
 }
 
 /* ------------- REDUCERS -------------------- */
@@ -29,10 +38,30 @@ export const getSuccess = (state, { users }) => {
   return {
     ...state,
     users,
+    finished: true,
   }
 }
 
 export const getFailure = (state) => {
+  return {
+    ...state,
+    error: true,
+    finished: true,
+  }
+}
+
+export const getChampions = (state, { champions }) => {
+  return state
+}
+
+export const getChampionsSuccess = (state, { championsUsers }) => {
+  return {
+    ...state,
+    championsUsers,
+  }
+}
+
+export const getChampionsFailure = (state) => {
   return {
     ...state,
     error: true,
@@ -51,5 +80,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.FETCH_USERS]: get,
   [Types.FETCH_USERS_SUCCESS]: getSuccess,
   [Types.FETCH_USERS_FAILURE]: getFailure,
+  [Types.GET_CHAMPIONS_USERS]: getChampions,
+  [Types.GET_CHAMPIONS_USERS_SUCCESS]: getChampionsSuccess,
+  [Types.GET_CHAMPIONS_USERS_FAILURE]: getChampionsFailure,
   [Types.RESET]: resetUsers,
 })

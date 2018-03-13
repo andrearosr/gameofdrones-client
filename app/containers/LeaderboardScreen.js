@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Layout from './Layout'
-import Leaderboard from '../components/Leaderboard'
-
 import UserActions from '../redux/user'
+import Leaderboard from '../components/Leaderboard'
 
 class LeaderboardScreen extends Component {
   componentWillMount() {
-    this.props.fetch()
+    this.props.fetchUsers()
   }
 
   render() {
@@ -29,7 +28,7 @@ const mapStateToProps = ({ user }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetch: () => {
+    fetchUsers: () => {
       dispatch(UserActions.fetchUsers())
     },
   }

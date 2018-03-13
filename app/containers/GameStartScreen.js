@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import Layout from './Layout'
 
+import UserActions from '../redux/user'
 import GameActions from '../redux/game'
 
 class GameStart extends Component {
@@ -87,9 +88,9 @@ const validate = (values) => {
 const GameStartScreen = reduxForm({
   validate,
   form: 'startGame',
-  onSubmit: (values, dispatch) => {
+  onSubmit: (values, dispatch, props) => {
     const champions = Object.values(values)
-    // Navigation will happen automagically on state change
+    dispatch(UserActions.getChampionsUsers({ champions }))
     dispatch(GameActions.startGame({ champions }))
   },
 })(GameStart)

@@ -11,7 +11,7 @@ import { UserTypes } from '../redux/user'
 
 import { computeRound, computeGame } from './game'
 import { fetchWeapons } from './settings'
-import { fetchUsers } from './user'
+import { fetchUsers, getChampionsUsers } from './user'
 
 /* ------------- API ------------- */
 const api = API.create()
@@ -24,5 +24,6 @@ export default function* root () {
     takeLatest(GameTypes.MAKE_MOVE, computeRound),
     takeLatest(GameTypes.COMPLETE_ROUND, computeGame),
     takeLatest(UserTypes.FETCH_USERS, fetchUsers, api),
+    takeLatest(UserTypes.GET_CHAMPIONS_USERS, getChampionsUsers, api),
   ])
 }
