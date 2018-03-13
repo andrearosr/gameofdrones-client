@@ -15,11 +15,9 @@ describe('Game reducer', () => {
   })
 
   it('START_GAME action initializes a new game', () => {
-    const payload = {
-      champions: ['Jorah', 'Bronn']
-    }
+    const champions = ['Jorah', 'Bronn']
 
-    const state = reducer(INITIAL_STATE, Actions.startGame({ ...payload }))
+    const state = reducer(INITIAL_STATE, Actions.startGame({ champions }))
 
     expect(state).toHaveProperty('champions', ['Jorah', 'Bronn'])
     expect(state).toHaveProperty('round', 1)
@@ -29,19 +27,15 @@ describe('Game reducer', () => {
     let game
 
     beforeEach(() => {
-      const payload = {
-        champions: ['Jorah', 'Bronn']
-      }
+      const champions = ['Jorah', 'Bronn']
 
-      game = reducer(INITIAL_STATE, Actions.startGame({ ...payload }))
+      game = reducer(INITIAL_STATE, Actions.startGame({ champions }))
     })
 
     it('YIELD action ends game in favor of opponent', () => {
-      const payload = {
-        champion: 'Jorah'
-      }
+      const champion = 'Jorah'
 
-      const state = reducer(game, Actions.championYield({ ...payload }))
+      const state = reducer(game, Actions.championYield({ champion }))
 
       expect(state).toHaveProperty('winner', 'Bronn')
     })

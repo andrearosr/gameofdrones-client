@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { Link } from 'react-router-dom'
 import Layout from './Layout'
 
 import GameActions from '../redux/game'
 
 class GameStart extends Component {
   renderButton() {
-    const { handleSubmit, invalid } = this.props
+    const { invalid } = this.props
 
     return (
       <button className="button-main" type="submit" disabled={invalid}>
@@ -90,6 +89,7 @@ const GameStartScreen = reduxForm({
   form: 'startGame',
   onSubmit: (values, dispatch) => {
     const champions = Object.values(values)
+    // Navigation will happen automagically on state change
     dispatch(GameActions.startGame({ champions }))
   },
 })(GameStart)

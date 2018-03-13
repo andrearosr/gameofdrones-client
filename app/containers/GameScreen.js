@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Layout from './Layout'
+import GameActiveLayout from './Layout'
 
 import GameActions from '../redux/game'
+import SettingsActions from '../redux/settings'
+
+import images from '../assets/images'
 
 class GameScreen extends Component {
   constructor(props) {
@@ -13,6 +16,7 @@ class GameScreen extends Component {
         false,
         false,
       ],
+      selected: this.props.settings.weapons[0].name,
     }
   }
 
@@ -21,14 +25,45 @@ class GameScreen extends Component {
   //   this.props.reset()
   // }
 
+  // componentWillReceiveProps(nextProps) {
+  //   if (!this.state.selected && nextProps.settings.weapons.length > 1) {
+  //     this.setState({ selected: nextProps.settings.weapons[0].name })
+  //   }
+  // }
+
   onYieldPress = (champion, index) => {
     const current = this.state.yields
     current[index] = true
     this.setState({ yields: current })
   }
 
+  onWeaponSelect = ({ weapon }) => {
+    this.setState({ selected: weapon.name })
+  }
+
+  renderWeapons = () => {
+    return this.props.settings.weapons.map((weapon) => {
+      const className = this.state.selected === weapon.name ? 'button-weapon selected' : 'button-weapon'
+
+      return (
+        <button
+          className={className}
+          key={weapon.name}
+          onClick={() => this.onWeaponSelect({ weapon })}
+        >
+          <img
+            src={weapon.image}
+            title={weapon.name}
+            alt={weapon.name}
+            className="weapon-icon"
+          />
+        </button>
+      )
+    })
+  }
+
   render() {
-    const { game } = this.props
+    const { game, settings } = this.props
     const { champion, index } = game.readyChampionOne
       ? { champion: game.champions[0], index: 0 }
       : { champion: game.champions[1], index: 1 }
@@ -37,7 +72,7 @@ class GameScreen extends Component {
     const yieldButtonLabel = yieldDisabled ? 'Not today' : 'Yield'
 
     return (
-      <Layout>
+      <GameActiveLayout>
         <div className="game-screen-content">
           {/* Title */}
           <div className="game-screen-title">
@@ -46,6 +81,14 @@ class GameScreen extends Component {
             {/* Player */}
             <div className="game-screen-player">
               Champion: {champion}
+            </div>
+          </div>
+
+          {/* Weapons */}
+          <div className="game-screen-weapons">
+            Choose your weapon
+            <div className="game-weapons">
+              {this.renderWeapons()}
             </div>
           </div>
 
@@ -63,14 +106,15 @@ class GameScreen extends Component {
             </button>
           </div>
         </div>
-      </Layout>
+      </GameActiveLayout>
     )
   }
 }
 
-const mapStateToProps = ({ game }) => {
+const mapStateToProps = ({ game, settings }) => {
   return {
     game,
+    settings,
   }
 }
 

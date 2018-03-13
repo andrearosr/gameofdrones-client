@@ -49,6 +49,26 @@
   }
 }
 
+.button-weapon {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  background-color: transparent;
+  padding: 0;
+
+  transition: $transition;
+
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+
+  &.selected {
+    border: 2px solid $teal;
+    box-shadow: 0px 0px 4px 1px $teal;
+  }
+}
+
 .input {
   @include regular-font;
   font-weight: 300;
