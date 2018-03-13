@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import LoadingIndicator from 'react-loading-indicator'
 import Layout from './Layout'
+import Game from '../components/Game'
 
 import GameActions from '../redux/game'
 import SettingsActions from '../redux/settings'
@@ -30,46 +30,19 @@ class GameScreen extends Component {
     }
   }
 
+  onWeaponSelect = ({ weapon }) => {
+    this.setState({ selected: weapon.name })
+  }
+
   onYieldPress = (champion, index) => {
     const current = this.state.yields
     current[index] = true
     this.setState({ yields: current })
   }
 
-  onWeaponSelect = ({ weapon }) => {
-    this.setState({ selected: weapon.name })
-  }
-
   onAcceptPress = () => {
     this.props.makeMove({ weapon: this.state.selected })
     this.setState({ selected: this.props.settings.weapons[0].name })
-  }
-
-  renderWeapons = () => {
-    if (this.props.settings.weapons.length < 1) {
-      return (
-        <LoadingIndicator />
-      )
-    }
-
-    return this.props.settings.weapons.map((weapon) => {
-      const className = this.state.selected === weapon.name ? 'button-weapon selected' : 'button-weapon'
-
-      return (
-        <button
-          className={className}
-          key={weapon.name}
-          onClick={() => this.onWeaponSelect({ weapon })}
-        >
-          <img
-            src={weapon.image}
-            title={weapon.name}
-            alt={weapon.name}
-            className="weapon-icon"
-          />
-        </button>
-      )
-    })
   }
 
   render() {
@@ -78,43 +51,20 @@ class GameScreen extends Component {
       ? { champion: game.champions[0], index: 0 }
       : { champion: game.champions[1], index: 1 }
 
-    const yieldDisabled = this.state.yields[index]
-    const yieldButtonLabel = yieldDisabled ? 'Not today' : 'Yield'
-
     return (
       <Layout>
         <div className="game-screen-content">
-          {/* Title */}
-          <div className="game-screen-title">
-            Round: {game.round}
-
-            {/* Player */}
-            <div className="game-screen-player">
-              Champion: {champion}
-            </div>
-          </div>
-
-          {/* Weapons */}
-          <div className="game-screen-weapons">
-            Choose your weapon
-            <div className="game-weapons">
-              {this.renderWeapons()}
-            </div>
-          </div>
-
-          {/* Buttons */}
-          <div className="game-screen-buttons">
-            <button className="button-main" onClick={this.onAcceptPress}>
-              Accept
-            </button>
-            <button
-              className="button-danger"
-              onClick={() => this.onYieldPress(champion, index)}
-              disabled={yieldDisabled}
-            >
-              {yieldButtonLabel}
-            </button>
-          </div>
+          <Game
+            weapons={this.props.settings.weapons}
+            selected={this.state.selected}
+            game={game}
+            champion={champion}
+            index={index}
+            yields={this.state.yields}
+            onWeaponSelect={this.onWeaponSelect}
+            onYieldPress={this.onYieldPress}
+            onAcceptPress={this.onAcceptPress}
+          />
         </div>
       </Layout>
     )

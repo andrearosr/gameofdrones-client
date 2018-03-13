@@ -31,7 +31,7 @@ class Layout extends Component {
             <RoutedTabs className="tabbar" activeTabClassName="activeTab">
               {this.redirect()}
               <NavTab to={gameRoute} className="tab tab-left">Game</NavTab>
-              <NavTab to="/scoreboard" className="tab tab-right">Scoreboard</NavTab>
+              <NavTab to="/leaderboard" className="tab tab-right">Leaderboard</NavTab>
             </RoutedTabs>
 
             {children}

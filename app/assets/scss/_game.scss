@@ -5,12 +5,25 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
   padding: 10px;
+
+  @include medium-and-up {
+    flex-direction: row;
+    align-items: stretch;
+  }
 }
 
-.game-screen-title {
+// GAME SECTION
+.game-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.game-title {
   text-align: center;
 
   @include title-font;
@@ -21,7 +34,7 @@
   }
 }
 
-.game-screen-player {
+.game-player {
   @include title-font;
   font-size: 18px;
 
@@ -30,12 +43,12 @@
   }
 }
 
-.game-screen-weapons {
+.game-weapons {
   @include title-font;
   font-size: 18px;
   max-width: 500px;
 
-  .game-weapons {
+  .weapons {
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
@@ -51,7 +64,7 @@
   }
 }
 
-.game-screen-buttons {
+.game-buttons {
   display: flex;
   flex-direction: column;
 
@@ -63,3 +76,5 @@
     flex-direction: row;
   }
 }
+
+// SCORES SECTION
