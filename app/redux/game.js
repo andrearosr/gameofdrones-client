@@ -12,6 +12,10 @@ const { Types, Creators } = createActions({
     round: null,
     scores: [],
   },
+  continueGame: null,
+  completeGame: {
+    winner: null,
+  },
   championYield: {
     champion: null,
   },
@@ -44,6 +48,10 @@ export const GameSelectors = {
     round: game.round,
     currentMove: game.currentMove,
     scores: game.scores,
+  }),
+
+  getChampions: ({ game }) => ({
+    champions: game.champions,
   }),
 }
 
@@ -87,6 +95,18 @@ export const completeCurrentRound = (state, { round, scores }) => {
   }
 }
 
+export const continueCurrentGame = (state) => {
+  // Nothing really matters
+  return state
+}
+
+export const completeCurrentGame = (state, { winner }) => {
+  return {
+    ...state,
+    winner,
+  }
+}
+
 export const championYields = (state, { champion }) => {
   const otherPlayer = state.champions.find((i) => {
     return i !== champion
@@ -113,6 +133,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.MAKE_MOVE]: makeNewMove,
   [Types.CONTINUE_ROUND]: continueCurrentRound,
   [Types.COMPLETE_ROUND]: completeCurrentRound,
+  [Types.COMPLETE_GAME]: completeCurrentGame,
   [Types.CHAMPION_YIELD]: championYields,
   [Types.RESET]: resetGame,
 })

@@ -8,7 +8,7 @@ import { SettingsTypes } from '../redux/settings'
 
 /* ------------- Sagas ------------- */
 
-import { computeRound } from './game'
+import { computeRound, computeGame } from './game'
 import { fetch } from './settings'
 
 /* ------------- API ------------- */
@@ -20,5 +20,6 @@ export default function* root () {
   yield all([
     takeLatest(SettingsTypes.FETCH, fetch, api),
     takeLatest(GameTypes.MAKE_MOVE, computeRound),
+    takeLatest(GameTypes.COMPLETE_ROUND, computeGame),
   ])
 }

@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 
 class Layout extends Component {
   redirect() {
-    if (this.props.game.round > 0 && this.props.game.round < 4) {
+    if (this.props.game.round > 0) {
       return (
         <Route path="/game" render={() => <Redirect replace to="/game/play" />} exact />
       )

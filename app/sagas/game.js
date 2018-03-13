@@ -3,28 +3,33 @@ import _ from 'lodash'
 import GameActions, { GameSelectors } from '../redux/game'
 
 export function* computeRound (action) {
-  const currentRound = yield select(GameSelectors.getRoundStatus)
+  const {
+    champions,
+    weapons,
+    currentMove,
+    round: currentRound,
+    scores: currentScores,
+  } = yield select(GameSelectors.getRoundStatus)
 
-  if (currentRound.currentMove.length < 2) {
+  if (currentMove.length < 2) {
     yield put(GameActions.continueRound())
   } else {
     // Both players have made their move, now let's see who won
-    const playerOne = currentRound.champions[0]
-    const playerTwo = currentRound.champions[1]
+    const playerOne = champions[0]
+    const playerTwo = champions[1]
 
-    const playerOneMove = currentRound.currentMove[0]
-    const playerTwoMove = currentRound.currentMove[1]
+    const playerOneMove = currentMove[0]
+    const playerTwoMove = currentMove[1]
 
-    const playerOneWeapon = _.find(currentRound.weapons, ['name', playerOneMove])
-    const playerTwoWeapon = _.find(currentRound.weapons, ['name', playerTwoMove])
+    const playerOneWeapon = _.find(weapons, ['name', playerOneMove])
+    const playerTwoWeapon = _.find(weapons, ['name', playerTwoMove])
 
     // TODO account for rule changes!!!!!!
     // 1. Players may tie by selecting weapons that aren't related
 
     // Draw
     if (playerOneWeapon === playerTwoWeapon) {
-      const currentScores = currentRound.scores || []
-      const round = currentRound.round + 1
+      const round = currentRound + 1
       const scores = currentScores.concat('draw')
 
       yield put(GameActions.completeRound({ round, scores }))
@@ -33,8 +38,7 @@ export function* computeRound (action) {
 
     // Wins
     if (_.find(playerOneWeapon.kills, ['weapon', playerTwoMove])) {
-      const currentScores = currentRound.scores || []
-      const round = currentRound.round + 1
+      const round = currentRound + 1
       const scores = currentScores.concat(playerOne)
 
       yield put(GameActions.completeRound({ round, scores }))
@@ -43,8 +47,7 @@ export function* computeRound (action) {
 
     // Wins
     if (_.find(playerTwoWeapon.kills, ['weapon', playerOneMove])) {
-      const currentScores = currentRound.scores || []
-      const round = currentRound.round + 1
+      const round = currentRound + 1
       const scores = currentScores.concat(playerTwo)
 
       yield put(GameActions.completeRound({ round, scores }))
@@ -52,10 +55,36 @@ export function* computeRound (action) {
     }
 
     // Players select weapons that aren't related
-    const currentScores = currentRound.scores || []
-    const round = currentRound.round + 1
+    const round = currentRound + 1
     const scores = currentScores.concat('draw')
 
     yield put(GameActions.completeRound({ round, scores }))
   }
+}
+
+export function* computeGame (action) {
+  const { scores } = action
+  const { champions } = yield select(GameSelectors.getChampions)
+
+  const playerOne = champions[0]
+  const playerTwo = champions[1]
+
+  const playerOnePoints = _.filter(scores, i => i === playerOne).length
+
+  if (playerOnePoints === 3) {
+    const winner = playerOne
+    yield put(GameActions.completeGame({ winner }))
+    return
+  }
+
+  const playerTwoPoints = _.filter(scores, i => i === playerTwo).length
+
+  if (playerTwoPoints === 3) {
+    const winner = playerTwo
+    yield put(GameActions.completeGame({ winner }))
+    return
+  }
+
+  // No one has won yet
+  yield put(GameActions.continueGame())
 }

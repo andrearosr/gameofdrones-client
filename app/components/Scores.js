@@ -49,10 +49,10 @@ const Scores = ({ champions, scores }) => {
           </h6>
           <div className="scores-row">
             <p className="scores-col">
-              Champion
+              <b>Champion</b>
             </p>
             <p className="scores-col">
-              Points
+              <b>Points</b>
             </p>
           </div>
           {renderPoints({ champions, scores })}
@@ -64,10 +64,10 @@ const Scores = ({ champions, scores }) => {
           </h6>
           <div className="scores-row">
             <p className="scores-col">
-              Round
+              <b>Round</b>
             </p>
             <p className="scores-col">
-              Winner
+              <b>Winner</b>
             </p>
           </div>
           {renderScores({ scores })}
