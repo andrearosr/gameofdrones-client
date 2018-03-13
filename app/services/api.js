@@ -1,7 +1,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'http://127.0.0.1:5000/api/v1') => {
+const create = (baseURL = 'https://gofdrones.herokuapp.com/api/v1') => {
   // ------
   // Configuration
   // ------
