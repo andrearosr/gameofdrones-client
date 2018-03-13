@@ -60,7 +60,7 @@ describe('Game reducer', () => {
           round: 1,
           winner: null,
           currentMove: [ 'rock' ],
-          status: null
+          scores: null
         }
       })
 

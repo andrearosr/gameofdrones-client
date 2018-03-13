@@ -23,39 +23,39 @@ export function* computeRound (action) {
 
     // Draw
     if (playerOneWeapon === playerTwoWeapon) {
-      const currentStatus = currentRound.status || []
+      const currentScores = currentRound.scores || []
       const round = currentRound.round + 1
-      const status = currentStatus.concat('draw')
+      const scores = currentScores.concat('draw')
 
-      yield put(GameActions.completeRound({ round, status }))
+      yield put(GameActions.completeRound({ round, scores }))
       return
     }
 
     // Wins
     if (_.find(playerOneWeapon.kills, ['weapon', playerTwoMove])) {
-      const currentStatus = currentRound.status || []
+      const currentScores = currentRound.scores || []
       const round = currentRound.round + 1
-      const status = currentStatus.concat(playerOne)
+      const scores = currentScores.concat(playerOne)
 
-      yield put(GameActions.completeRound({ round, status }))
+      yield put(GameActions.completeRound({ round, scores }))
       return
     }
 
     // Wins
     if (_.find(playerTwoWeapon.kills, ['weapon', playerOneMove])) {
-      const currentStatus = currentRound.status || []
+      const currentScores = currentRound.scores || []
       const round = currentRound.round + 1
-      const status = currentStatus.concat(playerTwo)
+      const scores = currentScores.concat(playerTwo)
 
-      yield put(GameActions.completeRound({ round, status }))
+      yield put(GameActions.completeRound({ round, scores }))
       return
     }
 
     // Players select weapons that aren't related
-    const currentStatus = currentRound.status || []
+    const currentScores = currentRound.scores || []
     const round = currentRound.round + 1
-    const status = currentStatus.concat('draw')
+    const scores = currentScores.concat('draw')
 
-    yield put(GameActions.completeRound({ round, status }))
+    yield put(GameActions.completeRound({ round, scores }))
   }
 }

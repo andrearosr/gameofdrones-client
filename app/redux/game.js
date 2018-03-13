@@ -10,7 +10,7 @@ const { Types, Creators } = createActions({
   continueRound: null,
   completeRound: {
     round: null,
-    status: [],
+    scores: [],
   },
   championYield: {
     champion: null,
@@ -25,14 +25,14 @@ export default Creators;
 
 // Round 0 is reserved for 'unstarted' game. Round 4 is reserved for 'finished' game.
 // Current move holds the current moves of each player
-// Status holds a 'log' of the winner of each previous round
+// Scores holds a 'log' of the winner of each previous round
 export const INITIAL_STATE = {
   champions: null,
   isChampionOneTurn: null,
   round: 0,
   winner: null,
   currentMove: null,
-  status: [],
+  scores: [],
 }
 
 /* ------------- Selectors ------------- */
@@ -43,6 +43,7 @@ export const GameSelectors = {
     champions: game.champions,
     round: game.round,
     currentMove: game.currentMove,
+    scores: game.scores,
   }),
 }
 
@@ -76,11 +77,11 @@ export const continueCurrentRound = (state) => {
   }
 }
 
-export const completeCurrentRound = (state, { round, status }) => {
+export const completeCurrentRound = (state, { round, scores }) => {
   return {
     ...state,
     round,
-    status,
+    scores,
     currentMove: [],
     isChampionOneTurn: true,
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Layout from './Layout'
 import Game from '../components/Game'
+import Scores from '../components/Scores'
 
 import GameActions from '../redux/game'
 import SettingsActions from '../redux/settings'
@@ -47,6 +48,7 @@ class GameScreen extends Component {
 
   render() {
     const { game } = this.props
+    const { champions, scores } = game
     const { champion, index } = game.isChampionOneTurn
       ? { champion: game.champions[0], index: 0 }
       : { champion: game.champions[1], index: 1 }
@@ -64,6 +66,11 @@ class GameScreen extends Component {
             onWeaponSelect={this.onWeaponSelect}
             onYieldPress={this.onYieldPress}
             onAcceptPress={this.onAcceptPress}
+          />
+
+          <Scores
+            champions={champions}
+            scores={scores}
           />
         </div>
       </Layout>

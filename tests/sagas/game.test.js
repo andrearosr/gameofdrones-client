@@ -62,7 +62,7 @@ describe('Given the computeRound saga', () => {
     expect(step(secondMoveRoundStatus))
       .toEqual(put(GameActions.completeRound({
         round: 2,
-        status: ['draw'],
+        scores: ['draw'],
       })))
   })
 
@@ -75,7 +75,7 @@ describe('Given the computeRound saga', () => {
     expect(step(secondMoveRoundStatus))
       .toEqual(put(GameActions.completeRound({
         round: 2,
-        status: ['jorah'],
+        scores: ['jorah'],
       })))
   })
 
@@ -88,7 +88,7 @@ describe('Given the computeRound saga', () => {
     expect(step(secondMoveRoundStatus))
       .toEqual(put(GameActions.completeRound({
         round: 2,
-        status: ['bronn'],
+        scores: ['bronn'],
       })))
   })
 
@@ -101,7 +101,7 @@ describe('Given the computeRound saga', () => {
     expect(step(secondMoveRoundStatus))
       .toEqual(put(GameActions.completeRound({
         round: 2,
-        status: ['draw'],
+        scores: ['draw'],
       })))
   })
 })

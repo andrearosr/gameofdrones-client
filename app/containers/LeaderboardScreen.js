@@ -7,7 +7,7 @@ class LeaderboardScreen extends Component {
     return (
       <Layout>
         <div className="start-screen-content">
-          these violent delights
+          {"doesn't look like anything to me"}
         </div>
       </Layout>
     )

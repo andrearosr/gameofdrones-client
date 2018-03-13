@@ -46,17 +46,21 @@ const Game = ({
     <div className="game-content">
       {/* Title */}
       <div className="game-title">
-        Round: {game.round}
+        <h2>
+          Round: {game.round}
+        </h2>
 
         {/* Player */}
-        <div className="game-player">
+        <h4 className="game-player">
           Champion: {champion}
-        </div>
+        </h4>
       </div>
 
       {/* Weapons */}
       <div className="game-weapons">
-        Choose your weapon
+        <h4>
+          Choose your weapon
+        </h4>
         <div className="weapons">
           {renderWeapons({ weapons, selected, onWeaponSelect })}
         </div>
