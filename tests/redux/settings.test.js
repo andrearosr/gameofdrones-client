@@ -1,6 +1,5 @@
 import React from 'react'
 import Actions, { reducer, INITIAL_STATE } from '../../app/redux/settings'
-import images from '../../app/assets/images'
 
 describe('Settings reducer', () => {
 
@@ -30,7 +29,7 @@ describe('Settings reducer', () => {
     const state = reducer(INITIAL_STATE, Actions.addWeapon({ newWeapon }))
     const expected = [newWeapon]
     expect(state.weapons).toHaveLength(1)
-    expect(state.weapons).toEqual(expect.arrayContaining(expected));
+    expect(state.weapons).toEqual(expect.arrayContaining(expected))
   })
 
   describe('given a certain amount of weapons', () => {
@@ -73,7 +72,7 @@ describe('Settings reducer', () => {
       }]
 
       expect(state.weapons).toHaveLength(1)
-      expect(state.weapons).toEqual(expect.arrayContaining(expected));
+      expect(state.weapons).toEqual(expect.arrayContaining(expected))
     })
   })
 })

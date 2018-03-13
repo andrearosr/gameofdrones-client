@@ -1,6 +1,5 @@
 import { createReducer, createActions } from 'reduxsauce'
 import _ from 'lodash'
-import images from '../assets/images'
 
 const { Types, Creators } = createActions({
   fetch: null,

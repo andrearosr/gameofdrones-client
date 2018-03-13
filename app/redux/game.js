@@ -2,7 +2,15 @@ import { createReducer, createActions } from 'reduxsauce'
 
 const { Types, Creators } = createActions({
   startGame: {
-    champions: null,
+    champions: [],
+  },
+  makeMove: {
+    weapon: null,
+  },
+  continueRound: null,
+  completeRound: {
+    round: null,
+    status: [],
   },
   championYield: {
     champion: null,
@@ -16,15 +24,26 @@ export default Creators;
 /* ------------- Initial state ------------- */
 
 // Round 0 is reserved for 'unstarted' game. Round 4 is reserved for 'finished' game.
-// Current move holds an object that defines the current moves of each player
-// Moves holds the history of moves
+// Current move holds the current moves of each player
+// Status holds a 'log' of the winner of each previous round
 export const INITIAL_STATE = {
   champions: null,
-  readyChampionOne: null,
+  isChampionOneTurn: null,
   round: 0,
   winner: null,
   currentMove: null,
-  moves: [],
+  status: [],
+}
+
+/* ------------- Selectors ------------- */
+
+export const GameSelectors = {
+  getRoundStatus: ({ game, settings }) => ({
+    weapons: settings.weapons,
+    champions: game.champions,
+    round: game.round,
+    currentMove: game.currentMove,
+  }),
 }
 
 /* ------------- REDUCERS -------------------- */
@@ -34,7 +53,36 @@ export const initializeGame = (state, { champions }) => {
     ...state,
     champions,
     round: 1,
-    readyChampionOne: true,
+    isChampionOneTurn: true,
+  }
+}
+
+export const makeNewMove = (state, { weapon }) => {
+  const currentMove = state.currentMove || []
+  const index = state.isChampionOneTurn ? 0 : 1
+
+  currentMove[index] = weapon
+
+  return {
+    ...state,
+    currentMove,
+  }
+}
+
+export const continueCurrentRound = (state) => {
+  return {
+    ...state,
+    isChampionOneTurn: false,
+  }
+}
+
+export const completeCurrentRound = (state, { round, status }) => {
+  return {
+    ...state,
+    round,
+    status,
+    currentMove: [],
+    isChampionOneTurn: true,
   }
 }
 
@@ -47,7 +95,7 @@ export const championYields = (state, { champion }) => {
     ...state,
     round: 4,
     winner: otherPlayer,
-    readyChampionOne: null,
+    isChampionOneTurn: null,
   }
 }
 
@@ -61,6 +109,9 @@ export const resetGame = () => {
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.START_GAME]: initializeGame,
+  [Types.MAKE_MOVE]: makeNewMove,
+  [Types.CONTINUE_ROUND]: continueCurrentRound,
+  [Types.COMPLETE_ROUND]: completeCurrentRound,
   [Types.CHAMPION_YIELD]: championYields,
   [Types.RESET]: resetGame,
 })

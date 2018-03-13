@@ -3,7 +3,6 @@ import SettingsActions from '../redux/settings'
 
 export function* fetch (api) {
   const response = yield call(api.getWeapons)
-  console.log('response')
 
   if (response.ok) {
     const weapons = response.data

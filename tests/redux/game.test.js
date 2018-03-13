@@ -39,5 +39,39 @@ describe('Game reducer', () => {
 
       expect(state).toHaveProperty('winner', 'Bronn')
     })
+
+    it('MAKE_MOVE action performs a new move for player 1', () => {
+      const weapon = 'rock'
+
+      const state = reducer(game, Actions.makeMove({ weapon }))
+      const expected = ['rock']
+
+      expect(state.currentMove).toEqual(expected)
+    })
+
+    describe('after player one has made a move', () => {
+      let firstMove
+
+      beforeEach(() => {
+        // Mock state resulting after 'compute round' executes
+        firstMove = {
+          champions: [ 'Jorah', 'Bronn' ],
+          isChampionOneTurn: false,
+          round: 1,
+          winner: null,
+          currentMove: [ 'rock' ],
+          status: null
+        }
+      })
+
+      it('MAKE_MOVE action performs a new move for player 2', () => {
+        const weapon = 'scissors'
+
+        const state = reducer(firstMove, Actions.makeMove({ weapon }))
+        const expected = ['rock', 'scissors']
+
+        expect(state.currentMove).toEqual(expected)
+      })
+    })
   })
 })

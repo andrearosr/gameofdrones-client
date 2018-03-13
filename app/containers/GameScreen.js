@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import LoadingIndicator from 'react-loading-indicator'
-import GameActiveLayout from './Layout'
+import Layout from './Layout'
 
 import GameActions from '../redux/game'
 import SettingsActions from '../redux/settings'
-
-import images from '../assets/images'
 
 class GameScreen extends Component {
   constructor(props) {
@@ -42,6 +40,11 @@ class GameScreen extends Component {
     this.setState({ selected: weapon.name })
   }
 
+  onAcceptPress = () => {
+    this.props.makeMove({ weapon: this.state.selected })
+    this.setState({ selected: this.props.settings.weapons[0].name })
+  }
+
   renderWeapons = () => {
     if (this.props.settings.weapons.length < 1) {
       return (
@@ -70,8 +73,8 @@ class GameScreen extends Component {
   }
 
   render() {
-    const { game, settings } = this.props
-    const { champion, index } = game.readyChampionOne
+    const { game } = this.props
+    const { champion, index } = game.isChampionOneTurn
       ? { champion: game.champions[0], index: 0 }
       : { champion: game.champions[1], index: 1 }
 
@@ -79,7 +82,7 @@ class GameScreen extends Component {
     const yieldButtonLabel = yieldDisabled ? 'Not today' : 'Yield'
 
     return (
-      <GameActiveLayout>
+      <Layout>
         <div className="game-screen-content">
           {/* Title */}
           <div className="game-screen-title">
@@ -101,7 +104,7 @@ class GameScreen extends Component {
 
           {/* Buttons */}
           <div className="game-screen-buttons">
-            <button className="button-main">
+            <button className="button-main" onClick={this.onAcceptPress}>
               Accept
             </button>
             <button
@@ -113,7 +116,7 @@ class GameScreen extends Component {
             </button>
           </div>
         </div>
-      </GameActiveLayout>
+      </Layout>
     )
   }
 }
@@ -132,6 +135,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetch: () => {
       dispatch(SettingsActions.fetch())
+    },
+    makeMove: ({ weapon }) => {
+      dispatch(GameActions.makeMove({ weapon }))
     },
     championYield: (champion) => {
       dispatch(GameActions.championYield({ champion }))
