@@ -17,6 +17,7 @@
   "author": "Kliment Petrov <kleopetroff@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "apisauce": "^0.14.3",
     "babel-polyfill": "^6.26.0",
     "cross-env": "5.1.4",
     "eslint-config-standard": "^11.0.0",
@@ -24,6 +25,7 @@
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-hot-loader": "4.0.0",
+    "react-loading-indicator": "^1.0.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "4.2.2",
     "react-router-redux": "^4.0.8",
@@ -77,7 +79,8 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/assetsTransformer.js", "\\.(css|less)$": "<rootDir>/config/jest/assetsTransformer.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/assetsTransformer.js",
+      "\\.(css|less)$": "<rootDir>/config/jest/assetsTransformer.js"
     }
   }
 }

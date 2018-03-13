@@ -17,16 +17,16 @@ const { store, persistor } = configureStore()
 const Root = () => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router>
-          <Switch>
-            <Route path="/" render={() => <Redirect replace to="/game" />} exact />
-            <Route path="/game" component={GameStartScreen} exact />
-            <Route path="/game/play" component={GameScreen} exact />
-            <Route path="/scoreboard" component={ScoreboardScreen} exact />
-          </Switch>
-        </Router>
-      </PersistGate>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
+      <Router>
+        <Switch>
+          <Route path="/" render={() => <Redirect replace to="/game" />} exact />
+          <Route path="/game" component={GameStartScreen} exact />
+          <Route path="/game/play" component={GameScreen} exact />
+          <Route path="/scoreboard" component={ScoreboardScreen} exact />
+        </Switch>
+      </Router>
+      {/* </PersistGate> */}
     </Provider>
   )
 }

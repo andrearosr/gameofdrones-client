@@ -3,58 +3,51 @@ import _ from 'lodash'
 import images from '../assets/images'
 
 const { Types, Creators } = createActions({
+  fetch: null,
+  fetchSuccess: {
+    weapons: [],
+  },
+  fetchFailure: null,
   addMove: {
-    weapon: null,
+    weapon: {},
     move: null,
   },
   addWeapon: {
-    newWeapon: null,
+    newWeapon: {},
   },
   reset: null,
 })
 
-export const GameTypes = Types;
+export const SettingsTypes = Types;
 export default Creators;
 
 /* ------------- Initial state ------------- */
 
 // Available moves
 export const INITIAL_STATE = {
-  weapons: [
-    {
-      name: 'rock',
-      image: images.rockIcon,
-      kills: [
-        {
-          weapon: 'scissors',
-          label: 'smashes',
-        },
-      ],
-    },
-    {
-      name: 'scissors',
-      image: images.scissorsIcon,
-      kills: [
-        {
-          weapon: 'paper',
-          label: 'cuts',
-        },
-      ],
-    },
-    {
-      name: 'paper',
-      image: images.paperIcon,
-      kills: [
-        {
-          weapon: 'rock',
-          label: 'covers',
-        },
-      ],
-    },
-  ],
+  weapons: [],
+  error: null,
 }
 
 /* ------------- REDUCERS -------------------- */
+
+export const get = (state) => {
+  return state
+}
+
+export const getSuccess = (state, { weapons }) => {
+  return {
+    ...state,
+    weapons,
+  }
+}
+
+export const getFailure = (state) => {
+  return {
+    ...state,
+    error: true,
+  }
+}
 
 export const addNewMove = (state, { weapon, move }) => {
   const selected = _.find(state.weapons, 'name', weapon)
@@ -85,6 +78,9 @@ export const resetSettings = () => {
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
+  [Types.FETCH]: get,
+  [Types.FETCH_SUCCESS]: getSuccess,
+  [Types.FETCH_FAILURE]: getFailure,
   [Types.ADD_MOVE]: addNewMove,
   [Types.ADD_WEAPON]: addNewWeapon,
   [Types.RESET]: resetSettings,

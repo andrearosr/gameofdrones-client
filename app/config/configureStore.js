@@ -16,13 +16,13 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export default () => {
   const store = createStore(
-    persistedReducer,
+    rootReducer,
     {},
-    applyMiddleware(),
+    applyMiddleware(sagaMiddleware),
   )
-  const persistor = persistStore(store)
+  // const persistor = persistStore(store)
 
-  // sagaMiddleware.run(rootSaga);
+  sagaMiddleware.run(rootSaga);
 
-  return { store, persistor }
+  return { store }
 };

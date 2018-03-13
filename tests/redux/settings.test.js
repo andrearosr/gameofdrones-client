@@ -16,33 +16,6 @@ describe('Settings reducer', () => {
     expect(state).toMatchObject(INITIAL_STATE)
   })
 
-  it('ADD_MOVE action pushes a new move onto an existing weapon', () => {
-    const weapon = 'rock'
-    const move = {
-      weapon: 'paper',
-      label: 'tears'
-    }
-
-    const state = reducer(INITIAL_STATE, Actions.addMove({ weapon, move }))
-    const expected = [{
-      name: 'rock',
-      image: images.rockIcon,
-      kills: [
-        {
-          weapon: 'scissors',
-          label: 'smashes',
-        },
-        {
-          weapon: 'paper',
-          label: 'tears'
-        }
-      ],
-    }]
-
-    expect(state.weapons).toHaveLength(3)
-    expect(state.weapons).toEqual(expect.arrayContaining(expected));
-  })
-
   it('ADD_WEAPON action pushes a new action', () => {
     const newWeapon = {
       name: "mountain",
@@ -56,7 +29,51 @@ describe('Settings reducer', () => {
 
     const state = reducer(INITIAL_STATE, Actions.addWeapon({ newWeapon }))
     const expected = [newWeapon]
-    expect(state.weapons).toHaveLength(4)
+    expect(state.weapons).toHaveLength(1)
     expect(state.weapons).toEqual(expect.arrayContaining(expected));
+  })
+
+  describe('given a certain amount of weapons', () => {
+    let settings
+
+    beforeEach(() => {
+      const newWeapon = {
+        name: "rock",
+        kills: [
+          {
+            weapon: 'scissors',
+            label: 'smashes'
+          }
+        ]
+      }
+
+      settings = reducer(INITIAL_STATE, Actions.addWeapon({ newWeapon }))
+    })
+
+    it('ADD_MOVE action pushes a new move onto an existing weapon', () => {
+      const weapon = 'rock'
+      const move = {
+        weapon: 'paper',
+        label: 'tears'
+      }
+
+      const state = reducer(settings, Actions.addMove({ weapon, move }))
+      const expected = [{
+        name: 'rock',
+        kills: [
+          {
+            weapon: 'scissors',
+            label: 'smashes',
+          },
+          {
+            weapon: 'paper',
+            label: 'tears'
+          }
+        ],
+      }]
+
+      expect(state.weapons).toHaveLength(1)
+      expect(state.weapons).toEqual(expect.arrayContaining(expected));
+    })
   })
 })

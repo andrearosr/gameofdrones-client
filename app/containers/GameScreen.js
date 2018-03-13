@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import LoadingIndicator from 'react-loading-indicator'
 import GameActiveLayout from './Layout'
 
 import GameActions from '../redux/game'
@@ -16,20 +17,20 @@ class GameScreen extends Component {
         false,
         false,
       ],
-      selected: this.props.settings.weapons[0].name,
+      selected: null,
     }
   }
 
-  // Use this to reset game
-  // componentWillMount() {
-  //   this.props.reset()
-  // }
+  componentWillMount() {
+    this.props.fetch();
+    // this.props.reset();
+  }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (!this.state.selected && nextProps.settings.weapons.length > 1) {
-  //     this.setState({ selected: nextProps.settings.weapons[0].name })
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.selected && nextProps.settings.weapons.length > 1) {
+      this.setState({ selected: nextProps.settings.weapons[0].name })
+    }
+  }
 
   onYieldPress = (champion, index) => {
     const current = this.state.yields
@@ -42,6 +43,12 @@ class GameScreen extends Component {
   }
 
   renderWeapons = () => {
+    if (this.props.settings.weapons.length < 1) {
+      return (
+        <LoadingIndicator />
+      )
+    }
+
     return this.props.settings.weapons.map((weapon) => {
       const className = this.state.selected === weapon.name ? 'button-weapon selected' : 'button-weapon'
 
@@ -122,6 +129,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     reset: () => {
       dispatch(GameActions.reset())
+    },
+    fetch: () => {
+      dispatch(SettingsActions.fetch())
     },
     championYield: (champion) => {
       dispatch(GameActions.championYield({ champion }))
